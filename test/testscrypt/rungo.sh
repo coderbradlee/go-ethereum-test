@@ -3,5 +3,5 @@ export GOPATH=/root/gopath
 export GOBIN=/root/gopath/bin
 
 #rm -fr testscypt
-go build -o testscypt testgo
+go build -o testscypt ./testgo
 ./testscypt
