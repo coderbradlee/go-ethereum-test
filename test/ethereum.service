@@ -1,0 +1,14 @@
+[Unit]
+Description=ethereum
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/root/go-ethereum/build/bin/geth --etherbase '0xB16FC01EE749d4Db81F712E6747120323eebA8f7' --mine --minerthreads=2 --verbosity=4
+WorkingDirectory=/root/go-ethereum/build/bin
+PrivateTmp=true
+Restart=on-failure
+RestartSec=30
+User=root
+[Install]
+WantedBy=multi-user.target
