@@ -1,11 +1,11 @@
 package main
 
 import (
-	"bytes"
-	"crypto/aes"
-	"crypto/sha256"
-	"encoding/hex"
-	"encoding/json"
+	_"bytes"
+	_"crypto/aes"
+	_"crypto/sha256"
+	_"encoding/hex"
+	_"encoding/json"
 	"fmt"
 	_"io/ioutil"
 	_"path/filepath"
@@ -16,7 +16,8 @@ import (
 	_"github.com/ethereum/go-ethereum/crypto/randentropy"
 	_"github.com/pborman/uuid"
 	_"golang.org/x/crypto/pbkdf2"
-	"golang.org/x/crypto/scrypt"
+	_"golang.org/x/crypto/scrypt"
+	"github.com/ethereum/go-ethereum/keystore"
 )
 
 
