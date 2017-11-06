@@ -1,4 +1,4 @@
-export GOROOT=/usr/lib/golang
+export GOROOT=/usr/local/go
 export GOPATH=/root/gopath
 export GOBIN=/root/gopath/bin
 
