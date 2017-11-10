@@ -40,14 +40,19 @@ const(
 	// scryptR     = 8
 	// scryptDKLen = 32
 )
-// type Key struct {
-// 	Id uuid.UUID // Version 4 "random" for unique id not derived from key data
-// 	// to simplify lookups we also store the address
-// 	Address common.Address
-// 	// we only store privkey as pubkey/address can be derived from it
-// 	// privkey in this struct is always in plaintext
-// 	PrivateKey *ecdsa.PrivateKey
-// }	
+// Hash represents the 32 byte Keccak256 hash of arbitrary data.
+type Hash struct {
+	hash common.Hash
+}
+
+// NewHashFromBytes converts a slice of bytes to a hash value.
+func NewHashFromBytes(binary []byte) (hash *Hash, _ error) {
+	h := new(Hash)
+	if err := h.SetBytes(common.CopyBytes(binary)); err != nil {
+		return nil, err
+	}
+	return h, nil
+}	
 func bytesToBits(data []byte)[]bool {
         bits := make([]bool, len(data) * 8);
 
@@ -69,7 +74,7 @@ func PrivateToMnemonic(entropy []byte) ([]string,error){
     } else if(len(entropy) == 0) {
         return words,errors.New("empty");
     } else {
-    	h,e:=common.NewHashFromBytes(entropy)
+    	h,e:=NewHashFromBytes(entropy)
     	if e!=nil{
     		return words,errors.New("NewHashFromBytes");
     	}
