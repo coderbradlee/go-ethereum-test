@@ -59,7 +59,7 @@ func bytesToBits(data []byte)[]bool {
 
         for i := 0; i < len(data); i++ {
             for j := 0; j < 8; j++ {
-                bits[i * 8 + j] = (data[i] & 1 << 7 - j) != 0;
+                bits[i * 8 + j] = ((int)data[i] & 1 << 7 - j) != 0;
             }
         }
 
