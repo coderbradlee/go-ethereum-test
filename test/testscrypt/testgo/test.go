@@ -16,7 +16,7 @@ import (
 	_"github.com/pborman/uuid"
 	_"golang.org/x/crypto/pbkdf2"
 	_"golang.org/x/crypto/scrypt"
-	"github.com/ethereum/go-ethereum/common"
+	_"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/accounts/keystore"
 	_"crypto/elliptic"
 	"github.com/btcsuite/btcd/btcec"
