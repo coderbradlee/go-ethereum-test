@@ -22,7 +22,7 @@ import (
 	"github.com/btcsuite/btcd/btcec"
 	"errors"
 	"strings"
-	xxx "common"
+	xxx "./moblie/common"
 )
 const(
 	StandardScryptN = int(keystore.StandardScryptN)//65536
