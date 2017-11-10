@@ -22,7 +22,7 @@ import (
 	"github.com/btcsuite/btcd/btcec"
 	"errors"
 	"strings"
-	xxx "github.com/ethereum/go-ethereum/mobile/common"
+	xxx "common"
 )
 const(
 	StandardScryptN = int(keystore.StandardScryptN)//65536
