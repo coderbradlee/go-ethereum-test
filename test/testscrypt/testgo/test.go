@@ -22,6 +22,7 @@ import (
 	"github.com/btcsuite/btcd/btcec"
 	"errors"
 	"strings"
+	xxx "github.com/ethereum/go-ethereum/mobile/common"
 )
 const(
 	StandardScryptN = int(keystore.StandardScryptN)//65536
@@ -41,18 +42,18 @@ const(
 	// scryptDKLen = 32
 )
 // Hash represents the 32 byte Keccak256 hash of arbitrary data.
-type Hash struct {
-	hash common.Hash
-}
+// type Hash struct {
+// 	hash common.Hash
+// }
 
-// NewHashFromBytes converts a slice of bytes to a hash value.
-func NewHashFromBytes(binary []byte) (hash *Hash, _ error) {
-	h := new(Hash)
-	if err := h.SetBytes(common.CopyBytes(binary)); err != nil {
-		return nil, err
-	}
-	return h, nil
-}	
+// // NewHashFromBytes converts a slice of bytes to a hash value.
+// func NewHashFromBytes(binary []byte) (hash *Hash, _ error) {
+// 	h := new(Hash)
+// 	if err := h.SetBytes(common.CopyBytes(binary)); err != nil {
+// 		return nil, err
+// 	}
+// 	return h, nil
+// }	
 func bytesToBits(data []byte)[]bool {
         bits := make([]bool, len(data) * 8);
 
@@ -74,7 +75,7 @@ func PrivateToMnemonic(entropy []byte) ([]string,error){
     } else if(len(entropy) == 0) {
         return words,errors.New("empty");
     } else {
-    	h,e:=NewHashFromBytes(entropy)
+    	h,e:=xxx.NewHashFromBytes(entropy)
     	if e!=nil{
     		return words,errors.New("NewHashFromBytes");
     	}
