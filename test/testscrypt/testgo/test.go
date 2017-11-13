@@ -59,7 +59,8 @@ func bytesToBits(data []byte)[]bool {
 
         for i := 0; i < len(data); i++ {
             for j := 0; j < 8; j++ {
-                bits[i * 8 + j] = (int(data[i]) & 1 << 7 - j) != 0;
+                bits[i * 8 + j] = (uint8(data[i]) & (1 << uint8(7 - j))) != 0;
+                // fmt.Printf("////index:%d,%d\n",int(data[i]),(int(data[i]) & (1 << uint8(7 - j))))
             }
         }
 
@@ -67,7 +68,8 @@ func bytesToBits(data []byte)[]bool {
     }
     
 func PrivateToMnemonic(entropy []byte) ([]string,error){
-	wordList:=strings.Split(Mnemonic, "\r\n")
+	wordList:=strings.Split(Mnemonic, "\n")
+	// fmt.Println(len(wordList))
 	// words:=make([]string)
 	var words []string
     if(len(entropy) % 4 > 0) {
@@ -88,17 +90,21 @@ func PrivateToMnemonic(entropy []byte) ([]string,error){
         copy(concatBits[len(entropyBits):],hashBits[:])
         
         nwords := len(concatBits) / 11;
-
+        // fmt.Println(len(concatBits))
+        // fmt.Println(nwords)
         for i := 0; i < nwords; i++ {
             index := 0;
-
+            // fmt.Println(i)
             for j := 0; j < 11; j++ {
+            	// fmt.Printf("////:%d\n",j)
                 index <<= 1;
                 if(concatBits[i * 11 + j]) {
                     index |= 1;
                 }
+                // fmt.Printf("////index:%d\n",index)
             }
-			append(words,wordList[index]);
+            fmt.Printf("////index:%d\n",index)
+			words=append(words,wordList[index]);
         }
 
         return words,nil;
@@ -190,22 +196,35 @@ func main() {
 		//fmt.Println("keystore is:\n"+string(keyjson)+"\n")
 	}
 	fmt.Println("/////////////from PrivateKey to Mnemonic:")
-	
+	words,err:=PrivateToMnemonic(key.PrivateKey.D.Bytes())
+	if err!=nil{
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(words)
 	{
-		inputkey := &keystore.Key{
-			Id:         key.Id,
-			Address:    crypto.PubkeyToAddress(key.PrivateKey.PublicKey),
-			PrivateKey: key.PrivateKey,
-		}
-		if keyjson, err = keystore.EncryptKey(inputkey, password, LightScryptN, LightScryptP); err != nil {
-			fmt.Printf("failed to crypt key %v",err)
-		}else{
-			fmt.Println("keystore is:\n"+string(keyjson)+"\n")
-		}
+		// inputkey := &keystore.Key{
+		// 	Id:         key.Id,
+		// 	Address:    crypto.PubkeyToAddress(key.PrivateKey.PublicKey),
+		// 	PrivateKey: key.PrivateKey,
+		// }
+		// if keyjson, err = keystore.EncryptKey(inputkey, password, LightScryptN, LightScryptP); err != nil {
+		// 	fmt.Printf("failed to crypt key %v",err)
+		// }else{
+		// 	fmt.Println("keystore is:\n"+string(keyjson)+"\n")
+		// }
 	}
 	
 
-
+{
+	//test slice cat
+	wordList1:=strings.Split("a b c", " ")
+	wordList2:=strings.Split("d e f g", " ")
+	words:=make([]string,len(wordList1)+len(wordList2))
+	copy(words[0:len(wordList1)],wordList1[:])
+	copy(words[len(wordList1):],wordList2[:])
+	fmt.Println(words)
+}
 
 
 
